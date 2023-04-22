@@ -2,10 +2,14 @@ from tkinter import *
 import platform
 import requests
 from random import randint
+from helpers.retrieve import getMessage
 import time
 
-category = ['sleep', 'dissapointed', 'watching']
-response = requests.get("http://34.238.250.217:8000/"+category[0])
+
+
+
+# category = ['sleep', 'dissapointed', 'watching']
+# response = requests.get("http://34.238.250.217:8000/"+category[0])
 
 #global Variables
 root = Tk()
@@ -66,8 +70,8 @@ pet = Label(root, bd=0, bg='black')
 pet.pack()
 
 def mouseClick( event ):  
-    Dick = response.json()
-    message = Dick[str(randint(0,2))]
+    
+    message = getMessage("pikachu")
     messagebox.configure(text= message, font=('Times', 15))
         
 
