@@ -47,7 +47,7 @@ root.overrideredirect(True)
 #setting transparency
 if (platform.system() == 'Windows'):
   root.wm_attributes("-transparentcolor", 'black')
-  messagebox = Label( root, text="", bd=0, bg='black', pady=10)
+  messagebox = Label( root, text="", bd=0, bg='black', pady=10, fg='white')
    
 else:
   root.wm_attributes("-transparent", True)
