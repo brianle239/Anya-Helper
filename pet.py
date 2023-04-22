@@ -71,7 +71,8 @@ pet.pack()
 
 def mouseClick( event ):  
     
-    message = getMessage("pikachu")
+    message = getMessage("mom")
+    print(message)
     messagebox.configure(text= message, font=('Times', 15))
         
 
