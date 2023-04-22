@@ -37,24 +37,25 @@ def gif(ind, walk_pos,velocity):
 
     walk_pos += velocity
     root.after(150, gif, ind,walk_pos, velocity)
-    root.geometry("{0}x{1}+{2}+{3}".format(frame_width, frame_height*2, walk_pos,screen_height - (frame_height * 2)))
+    root.geometry("{0}x{1}+{2}+{3}".format(frame_width * 3, frame_height*2, walk_pos,screen_height - (frame_height * 2)))
    
 
 #window configurations
-root.config(highlightbackground='black')
+root.config(highlightbackground='black', background='black')
 root.overrideredirect(True)
 
 #setting transparency
 if (platform.system() == 'Windows'):
   root.wm_attributes("-transparentcolor", 'black')
+  messagebox = Label( root, text="", bd=0, bg='black', pady=10)
    
 else:
   root.wm_attributes("-transparent", True)
   root.config(bg='systemTransparent')
+  messagebox = Label( root, text="", bd=0, bg='systemTransparent', pady=10)
 
 #setting label
 root.after(0, gif,0, walk_pos, velocity)
-messagebox = Label( root, text="", bd=0, bg='systemTransparent', pady=10)
 messagebox.pack()
 
 pet = Label(root, bd=0, bg='black')
@@ -62,9 +63,7 @@ pet.pack()
 
 def mouseClick( event ):  
     Dick = response.json()
-    #print(Dick[str(randint(0,2))])
     message = Dick[str(randint(0,2))]
-
     messagebox.configure(text= message, font=('Times', 15))
    
  
