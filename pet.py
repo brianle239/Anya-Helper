@@ -1,9 +1,10 @@
 from tkinter import *
 import platform
 import requests
+from random import randint
 
-# response = requests.get("http://3.86.31.42:8000/test")
-# print(response.json())
+category = ['sleep', 'dissapointed', 'watching']
+response = requests.get("http://34.238.250.217:8000/"+category[0])
 
 #global Variables
 root = Tk()
@@ -22,6 +23,7 @@ velocity = 5
 def gif(ind, walk_pos,velocity):
     frame = frames[ind]
     pet.configure(image=frame) 
+
     #iterating through frames
     ind += 1
     if ind == frameCnt:
@@ -35,7 +37,7 @@ def gif(ind, walk_pos,velocity):
 
     walk_pos += velocity
     root.after(150, gif, ind,walk_pos, velocity)
-    root.geometry("{0}x{1}+{2}+{3}".format(frame_width, frame_height * 2, walk_pos,screen_height - (frame_height * 2)))
+    root.geometry("{0}x{1}+{2}+{3}".format(frame_width, frame_height*2, walk_pos,screen_height - (frame_height * 2)))
    
 
 #window configurations
@@ -58,9 +60,13 @@ messagebox.pack()
 pet = Label(root, bd=0, bg='black')
 pet.pack()
 
-
 def mouseClick( event ):  
-    messagebox.configure(text="This is updated Label text")
+    Dick = response.json()
+    #print(Dick[str(randint(0,2))])
+    message = Dick[str(randint(0,2))]
+
+    messagebox.configure(text= message, font=('Times', 15))
+   
  
 pet.bind( "<Button>", mouseClick )
 
