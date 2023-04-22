@@ -2,9 +2,14 @@ from tkinter import *
 import platform
 import requests
 from random import randint
+from helpers.retrieve import getMessage
+import time
 
-category = ['sleep', 'dissapointed', 'watching']
-response = requests.get("http://34.238.250.217:8000/"+category[0])
+
+
+
+# category = ['sleep', 'dissapointed', 'watching']
+# response = requests.get("http://34.238.250.217:8000/"+category[0])
 
 #global Variables
 root = Tk()
@@ -21,7 +26,9 @@ velocity = 5
 
 
 #animate gif
-def gif(ind, walk_pos,velocity):
+def gif(ind, walk_pos):
+    global velocity
+    print(velocity)
     frame = frames[ind]
     pet.configure(image=frame) 
 
@@ -37,7 +44,7 @@ def gif(ind, walk_pos,velocity):
         velocity = -velocity
 
     walk_pos += velocity
-    root.after(150, gif, ind,walk_pos, velocity)
+    root.after(150, gif, ind,walk_pos)
     root.geometry("{0}x{1}+{2}+{3}".format(frame_width * 3, frame_height*2, walk_pos,screen_height - (frame_height * 2)))
    
 
@@ -56,24 +63,32 @@ else:
   messagebox = Label( root, text="", bd=0, bg='systemTransparent', pady=10)
 
 #setting label
-root.after(0, gif,0, walk_pos, velocity)
+root.after(0, gif,0, walk_pos)
 messagebox.pack()
 
 pet = Label(root, bd=0, bg='black')
 pet.pack()
 
 def mouseClick( event ):  
-    Dick = response.json()
-    message = Dick[str(randint(0,2))]
+    
+    message = getMessage("mom")
+    print(message)
     messagebox.configure(text= message, font=('Times', 15))
+        
+
    
  
-pet.bind( "<Button>", mouseClick )
+pet.bind( "<Button-1>", mouseClick )
 
-def handleClick():
-    print("Hello World")
+def rightClick():
+    # Doesn't work
+    global velocity
+    velocity = 5
+    
+ 
+
 context_menu = Menu(root, tearoff=0)
-context_menu.add_command(label="Option 1", command=handleClick)
+context_menu.add_command(label="Option 1", command=rightClick)
 root.bind("<Button-3>", lambda event: context_menu.post(event.x_root, event.y_root))
  
 # Start the main event loop
