@@ -19,6 +19,7 @@ left_boundary = (frame_width * 2)
 right_boundary = screen_width - (frame_width * 2)
 velocity = 5
 
+
 #animate gif
 def gif(ind, walk_pos,velocity):
     frame = frames[ind]
@@ -68,6 +69,15 @@ def mouseClick( event ):
    
  
 pet.bind( "<Button>", mouseClick )
+
+def handleClick():
+    print("Hello World")
+context_menu = Menu(root, tearoff=0)
+context_menu.add_command(label="Option 1", command=handleClick)
+root.bind("<Button-3>", lambda event: context_menu.post(event.x_root, event.y_root))
+ 
+# Start the main event loop
+root.mainloop()
 
 #calling loop
 root.mainloop()
