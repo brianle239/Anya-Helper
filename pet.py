@@ -9,7 +9,7 @@ response = requests.get("http://34.238.250.217:8000/"+category[0])
 #global Variables
 root = Tk()
 frameCnt = 16
-frames = [PhotoImage(file='pikachu.gif', format = 'gif -index %i' %(i)) for i in range(frameCnt)]
+frames = [PhotoImage(file='./gifs/pikachu.gif', format = 'gif -index %i' %(i)) for i in range(frameCnt)]
 frame_width = frames[0].width()
 frame_height = frames[0].height() 
 screen_width  =  root.winfo_screenwidth()
