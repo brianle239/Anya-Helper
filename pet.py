@@ -1,6 +1,5 @@
 from tkinter import *
 import platform
-import requests
 from random import randint
 from helpers.retrieve import getMessage
 import time
@@ -129,7 +128,7 @@ menu.add_command(label='Pikachu',command=pikachuChange)
 menu.add_separator()
 menu.add_command(label="Gassko", command=gasskoChange)
 
-if (root.tk.call('tk', 'windowingsystem')=='aqua'):
+if (platform.system() == 'Darwin'):
     root.bind('<2>', lambda e: menu.post(e.x_root, e.y_root))
     root.bind('<Control-1>', lambda e: menu.post(e.x_root, e.y_root))
 else:
