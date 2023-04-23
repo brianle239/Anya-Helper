@@ -117,7 +117,12 @@ def pikachuChange():
     global current
     global velocity
     current = './gifs/pikachu.gif'
-    frames = [PhotoImage(file='./gifs/pikachu_walking.gif', format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/pikachu_walking.gif"])]
+    if (velocity >= 0):
+        current = './gifs/pikachu_walking.gif'
+    else:
+        current = './gifs/left_pikachu_walking.gif'
+    
+    frames = [PhotoImage(file=current, format = 'gif -index %i' %(i)) for i in range(frameCount[current])]
     frame_height = frames[0].height() +10
     messagebox.configure(text= "", font=('Times', 15))
 
@@ -133,8 +138,12 @@ def gasskoChange():
         frame_height = frames[0].height() -4
 
     else:
-        current = './gifs/professor_walking.gif'
-        frames = [PhotoImage(file='./gifs/professor_walking.gif', format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/professor_walking.gif"])]
+        
+        if (velocity > 0):
+            current = './gifs/professor_walking.gif'
+        else:
+            current = './gifs/left_professor_walking.gif'
+        frames = [PhotoImage(file=current, format = 'gif -index %i' %(i)) for i in range(frameCount[current])]
         frame_height = frames[0].height() -6
 
     messagebox.configure(text= "", font=('Times', 15))
@@ -144,7 +153,7 @@ menu.add_command(label='Pikachu',command=pikachuChange)
 menu.add_separator()
 menu.add_command(label="Gassko", command=gasskoChange)
 
-if (root.tk.call('tk', 'windowingsystem')=='aqua'):
+if (platform.system() == 'darwin'):
     root.bind('<2>', lambda e: menu.post(e.x_root, e.y_root))
     root.bind('<Control-1>', lambda e: menu.post(e.x_root, e.y_root))
 else:
