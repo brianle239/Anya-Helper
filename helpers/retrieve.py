@@ -12,10 +12,10 @@ def retrieveCharacterAction(type: str) -> dict:
         response = requests.get(URL+type)
     except:
         return None
-
     return response.json()
 
 def getMessage(type: str) -> str:
+    print("Es")
     global charType
     global prevDict
     global prevResponse
@@ -41,3 +41,5 @@ def getMessage(type: str) -> str:
     return response[str(randint(0,len(response)-1))]
 
 
+if __name__ == "__main__":
+    print(retrieveCharacterAction("mom"))

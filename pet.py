@@ -5,7 +5,10 @@ from random import randint
 from helpers.retrieve import getMessage
 import time
 
+URL = r"http://34.238.250.217:8000/"
 
+response = requests.get(URL)
+print(response.json())
 
 
 # category = ['sleep', 'dissapointed', 'watching']
@@ -100,10 +103,12 @@ pet = Label(root, bd=0, bg='black')
 pet.pack()
 
 def mouseClick( event ):  
+    # pass
     
     message = getMessage("mom")
-    # print(message)
-    messagebox.configure(text= message, font=('Times', 15))
+    print(message)
+#     # print(message)
+#     messagebox.configure(text= message, font=('Times', 15))
         
 
    
