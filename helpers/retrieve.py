@@ -9,21 +9,20 @@ prevResponse = 0
 
 def retrieveCharacterAction(type: str) -> dict:
     try:
-        response = requests.get(URL+type)
+        response = requests.get(URL+type, timeout=5)
     except:
         return None
     return response.json()
 
 def getMessage(type: str) -> str:
-    print("Es")
     global charType
     global prevDict
     global prevResponse
-    if ((charType != str) or (charType == "")):
+    if ((charType != type) or (charType == "")):
         message_type = retrieveCharacterAction(type)
         if (message_type == None):
             return ""
-        charType = str
+        charType = type
         prevDict = message_type
     
 
@@ -34,7 +33,7 @@ def getMessage(type: str) -> str:
         prevResponse = key
         link = URL+type+"/"+prevDict[str(key)]
         
-        response = requests.get(link)
+        response = requests.get(link, timeout=5)
     except:
         return ""
     response = response.json()

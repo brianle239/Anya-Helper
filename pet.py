@@ -4,7 +4,7 @@ import requests
 from random import randint
 from helpers.retrieve import getMessage
 import time
-
+from PIL import Image, ImageTk
 
 
 # category = ['sleep', 'dissapointed', 'watching']
@@ -52,7 +52,7 @@ def gif(ind, walk_pos):
         if (current in framesPair):
             current = framesPair[current]
             frames = [PhotoImage(file=current, format = 'gif -index %i' %(i)) for i in range(frameCount[current])]
-
+            
     elif ((time.time() -globalTime > waitTime) and (velocity == 0)):
         velocity = 5 if randint(0,1) == 1 else -5
         waitTime = randint(8,12)
@@ -118,6 +118,7 @@ def pikachuChange():
     current = './gifs/pikachu.gif'
     frames = [PhotoImage(file='./gifs/pikachu.gif', format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/pikachu.gif"])]
     frame_height = frames[0].height() +10
+    messagebox.configure(text= "", font=('Times', 15))
 
 def gasskoChange():
     global frames
@@ -134,6 +135,7 @@ def gasskoChange():
         current = './gifs/professor_walking.gif'
         frames = [PhotoImage(file='./gifs/professor_walking.gif', format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/professor_walking.gif"])]
         frame_height = frames[0].height() -6
+    messagebox.configure(text= "", font=('Times', 15))
 
 
 
@@ -149,8 +151,6 @@ root.bind("<Button-3>", lambda event: context_menu.post(event.x_root, event.y_ro
 # Start the main event loop
 root.mainloop()
 
-#calling loop
-root.mainloop()
 
 
 
