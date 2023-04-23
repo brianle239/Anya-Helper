@@ -2,14 +2,14 @@ import requests
 from random import randint
 
 
-URL = "http://34.238.250.217:8000/"
+URL = r"http://34.238.250.217:8000/"
 charType = ""
 prevDict = {}
 prevResponse = 0
 
 def retrieveCharacterAction(type: str) -> dict:
     try:
-        response = requests.get("http://34.238.250.217:8000/"+type)
+        response = requests.get(URL+type)
     except:
         return None
 
@@ -22,7 +22,7 @@ def getMessage(type: str) -> str:
     if ((charType != str) or (charType == "")):
         message_type = retrieveCharacterAction(type)
         if (message_type == None):
-            return None
+            return ""
         charType = str
         prevDict = message_type
     
@@ -32,11 +32,11 @@ def getMessage(type: str) -> str:
         if (key == prevResponse):
             key = (key+1)%len(prevDict)
         prevResponse = key
-        link = "http://34.238.250.217:8000/"+type+"/"+prevDict[str(key)]
+        link = URL+type+"/"+prevDict[str(key)]
         
         response = requests.get(link)
     except:
-        return None
+        return ""
     response = response.json()
     return response[str(randint(0,len(response)-1))]
 
