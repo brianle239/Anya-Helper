@@ -4,11 +4,6 @@ import requests
 from random import randint
 from helpers.retrieve import getMessage
 import time
-from PIL import Image, ImageTk
-
-
-# category = ['sleep', 'dissapointed', 'watching']
-# response = requests.get("http://34.238.250.217:8000/"+category[0])
 
 #global Variables
 root = Tk()
@@ -38,12 +33,8 @@ def gif(ind, walk_pos):
 
     frame = frames[ind%frameCount[current]]
     pet.configure(image=frame) 
-
-    #iterating through frames
     ind += 1
-    # if ind == frameCount[current]:
-    #     ind = 0
-
+  
     #Change directions
     if ((time.time() -globalTime > waitTime) and (velocity != 0)):
         velocity = 0
@@ -60,6 +51,7 @@ def gif(ind, walk_pos):
         if (current in framesPair):
             current = framesPair[current]
             frames = [PhotoImage(file=current, format = 'gif -index %i' %(i)) for i in range(frameCount[current])]
+    
         # Case when they stop near the edge
         if walk_pos > right_boundary:
             velocity = -abs(velocity)
@@ -91,25 +83,19 @@ else:
   root.config(bg='systemTransparent')
   messagebox = Label( root, text="", bd=0, bg='systemTransparent', pady=10)
 
+
+# windowclick
+def mouseClick( event ):  
+    message = getMessage("mom")
+    messagebox.configure(text= message, font=('Times', 15))
+
 #setting label
 root.after(0, gif,0, walk_pos)
 messagebox.pack()
 
 pet = Label(root, bd=0, bg='black')
-pet.pack()
-
-def mouseClick( event ):  
-    # pass
-    
-    message = getMessage("mom")
-    # print(message)
-#     # print(message)
-    messagebox.configure(text= message, font=('Times', 15))
-        
-
-   
- 
 pet.bind( "<Button-1>", mouseClick )
+pet.pack()
 
 def pikachuChange():
     global frames
@@ -125,7 +111,7 @@ def gasskoChange():
     global frame_height
     global velocity
     global current
-    
+
     if (velocity == 0):
         current = './gifs/professor_standing.gif'
         frames = [PhotoImage(file='./gifs/professor_standing.gif', format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/professor_standing.gif"])]
@@ -135,19 +121,20 @@ def gasskoChange():
         current = './gifs/professor_walking.gif'
         frames = [PhotoImage(file='./gifs/professor_walking.gif', format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/professor_walking.gif"])]
         frame_height = frames[0].height() -6
+
     messagebox.configure(text= "", font=('Times', 15))
 
+menu = Menu(root)
+menu.add_command(label='Pikachu',command=pikachuChange)
+menu.add_separator()
+menu.add_command(label="Gassko", command=gasskoChange)
 
+if (root.tk.call('tk', 'windowingsystem')=='aqua'):
+    root.bind('<2>', lambda e: menu.post(e.x_root, e.y_root))
+    root.bind('<Control-1>', lambda e: menu.post(e.x_root, e.y_root))
+else:
+    root.bind('<3>', lambda e: menu.post(e.x_root, e.y_root))
 
- 
-
-context_menu = Menu(root, tearoff=0)
-context_menu.add_command(label="Pikachu", command=pikachuChange)
-context_menu.add_separator()
-context_menu.add_command(label="Gassko", command=gasskoChange)
-
-root.bind("<Button-3>", lambda event: context_menu.post(event.x_root, event.y_root))
- 
 # Start the main event loop
 root.mainloop()
 
