@@ -5,10 +5,6 @@ from random import randint
 from helpers.retrieve import getMessage
 import time
 
-URL = r"http://34.238.250.217:8000/"
-
-response = requests.get(URL)
-print(response.json())
 
 
 # category = ['sleep', 'dissapointed', 'watching']
@@ -106,9 +102,9 @@ def mouseClick( event ):
     # pass
     
     message = getMessage("mom")
-    print(message)
+    # print(message)
 #     # print(message)
-#     messagebox.configure(text= message, font=('Times', 15))
+    messagebox.configure(text= message, font=('Times', 15))
         
 
    
@@ -132,11 +128,14 @@ def gasskoChange():
     if (velocity == 0):
         current = './gifs/professor_standing.gif'
         frames = [PhotoImage(file='./gifs/professor_standing.gif', format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/professor_standing.gif"])]
+        frame_height = frames[0].height() -4
+
     else:
         current = './gifs/professor_walking.gif'
         frames = [PhotoImage(file='./gifs/professor_walking.gif', format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/professor_walking.gif"])]
+        frame_height = frames[0].height() -6
 
-    frame_height = frames[0].height() -4
+
 
  
 
