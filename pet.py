@@ -9,13 +9,24 @@ import time
 root = Tk()
 current = "./gifs/professor_walking.gif"
 frameCount = {"./gifs/professor_walking.gif": 2, "./gifs/left_professor_walking.gif": 2, 
-              "./gifs/professor_standing.gif": 9, "./gifs/professor_standing.gif": 9,
+              "./gifs/professor_standing.gif": 9,
+              "./gifs/mom_walking.gif": 2, "./gifs/left_mom_walking.gif": 2, 
+              "./gifs/mom_standing.gif": 7,
               "./gifs/pikachu_walking.gif": 16, "./gifs/left_pikachu_walking.gif": 16}
+
 frames = [PhotoImage(file="./gifs/professor_walking.gif", format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/professor_walking.gif"])]
-framesPair = {"./gifs/professor_walking.gif": "./gifs/professor_standing.gif", "./gifs/professor_standing.gif": "./gifs/professor_walking.gif",
-              "./gifs/left_professor_walking.gif": "./gifs/professor_standing.gif", "./gifs/professor_standing.gif": "./gifs/left_professor_walking.gif"} 
+
+framesPair = {"./gifs/professor_walking.gif": "./gifs/professor_standing.gif", 
+              "./gifs/professor_standing.gif": "./gifs/professor_walking.gif",
+              "./gifs/left_professor_walking.gif": "./gifs/professor_standing.gif", 
+              "./gifs/professor_standing.gif": "./gifs/left_professor_walking.gif",
+              "./gifs/mom_walking.gif": "./gifs/mom_standing.gif", 
+              "./gifs/mom_standing.gif": "./gifs/mom_walking.gif",
+              "./gifs/left_mom_walking.gif": "./gifs/mom_standing.gif", 
+              "./gifs/mom_standing.gif": "./gifs/left_mom_walking.gif",
+              } 
 frame_width = frames[0].width()
-frame_height = frames[0].height() -4
+frame_height = frames[0].height() -8
 screen_width  =  root.winfo_screenwidth()
 screen_height =  root.winfo_screenheight()
 walk_pos = - frame_width
@@ -126,7 +137,7 @@ def pikachuChange():
     frame_height = frames[0].height() +10
     messagebox.configure(text= "", font=('Times', 15))
 
-def gasskoChange():
+def professorChange():
     global frames
     global frame_height
     global velocity
@@ -148,10 +159,36 @@ def gasskoChange():
 
     messagebox.configure(text= "", font=('Times', 15))
 
+    
+def momChange():
+    global frames
+    global frame_height
+    global velocity
+    global current
+
+    if (velocity == 0):
+        current = './gifs/mom_standing.gif'
+        frames = [PhotoImage(file='./gifs/mom_standing.gif', format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/mom_standing.gif"])]
+        frame_height = frames[0].height() -8
+
+    else:
+        
+        if (velocity > 0):
+            current = './gifs/mom_walking.gif'
+        else:
+            current = './gifs/left_mom_walking.gif'
+        frames = [PhotoImage(file=current, format = 'gif -index %i' %(i)) for i in range(frameCount[current])]
+        frame_height = frames[0].height() -8
+
+    messagebox.configure(text= "", font=('Times', 15))
+
+
 menu = Menu(root)
 menu.add_command(label='Pikachu',command=pikachuChange)
 menu.add_separator()
-menu.add_command(label="Gassko", command=gasskoChange)
+menu.add_command(label="Professor", command=professorChange)
+menu.add_separator()
+menu.add_command(label="Mom", command=momChange)
 
 if (platform.system() == 'Darwin'):
     root.bind('<2>', lambda e: menu.post(e.x_root, e.y_root))
