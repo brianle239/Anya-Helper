@@ -110,8 +110,16 @@ else:
 
 
 # windowclick
-def mouseClick( event ):  
-    message = getMessage("mom")
+def mouseClick( event ):
+    global current
+    character = ""
+    if ("pikachu" in current):
+        character = "pikachu"
+    elif ("mom" in current):
+        character = "mom"
+    elif ("professor" in current):
+        character = "professor"  
+    message = getMessage(character)
     messagebox.configure(text= message, font=('Times', 15))
 
 #setting label
