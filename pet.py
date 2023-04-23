@@ -8,9 +8,12 @@ import time
 #global Variables
 root = Tk()
 current = "./gifs/professor_walking.gif"
-frameCount = {"./gifs/professor_walking.gif": 2, "./gifs/professor_standing.gif": 9, "./gifs/pikachu.gif": 16}
+frameCount = {"./gifs/professor_walking.gif": 2, "./gifs/left_professor_walking.gif": 2, 
+              "./gifs/professor_standing.gif": 9, "./gifs/professor_standing.gif": 9,
+              "./gifs/pikachu_walking.gif": 16, "./gifs/left_pikachu_walking.gif": 16}
 frames = [PhotoImage(file="./gifs/professor_walking.gif", format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/professor_walking.gif"])]
-framesPair = {"./gifs/professor_walking.gif": "./gifs/professor_standing.gif", "./gifs/professor_standing.gif": "./gifs/professor_walking.gif"} 
+framesPair = {"./gifs/professor_walking.gif": "./gifs/professor_standing.gif", "./gifs/professor_standing.gif": "./gifs/professor_walking.gif",
+              "./gifs/left_professor_walking.gif": "./gifs/professor_standing.gif", "./gifs/professor_standing.gif": "./gifs/left_professor_walking.gif"} 
 frame_width = frames[0].width()
 frame_height = frames[0].height() -4
 screen_width  =  root.winfo_screenwidth()
@@ -55,13 +58,24 @@ def gif(ind, walk_pos):
         # Case when they stop near the edge
         if walk_pos > right_boundary:
             velocity = -abs(velocity)
+
         elif walk_pos < left_boundary:
             velocity = abs(velocity)
+        
     else:
         if walk_pos > right_boundary:
             velocity = -velocity
         elif walk_pos < left_boundary:
             velocity = -velocity
+
+    # Change orientation if walking base on velocity
+    
+    if ((velocity < 0 ) and ("walking" in current) and ("left_" not in current)):
+            current = "./gifs/" + "left_"+current[7:]
+            frames = [PhotoImage(file=current, format = 'gif -index %i' %(i)) for i in range(frameCount[current])]
+    if ((velocity > 0 ) and ("walking" in current) and ("left_" in current)):
+            current = "./gifs/" + current[12:]
+            frames = [PhotoImage(file=current, format = 'gif -index %i' %(i)) for i in range(frameCount[current])]
 
 
     walk_pos += velocity
@@ -101,8 +115,9 @@ def pikachuChange():
     global frames
     global frame_height
     global current
+    global velocity
     current = './gifs/pikachu.gif'
-    frames = [PhotoImage(file='./gifs/pikachu.gif', format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/pikachu.gif"])]
+    frames = [PhotoImage(file='./gifs/pikachu_walking.gif', format = 'gif -index %i' %(i)) for i in range(frameCount["./gifs/pikachu_walking.gif"])]
     frame_height = frames[0].height() +10
     messagebox.configure(text= "", font=('Times', 15))
 
