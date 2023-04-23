@@ -95,13 +95,13 @@ def gif(ind, walk_pos):
    
 
 #window configurations
-root.config(highlightbackground='black', background='black')
+root.config(highlightbackground='black', background='pink')
 root.overrideredirect(True)
 
 #setting transparency
 if (platform.system() == 'Windows'):
-  root.wm_attributes("-transparentcolor", 'black')
-  messagebox = Label( root, text="", bd=0, bg='black', pady=10, fg='white')
+  root.wm_attributes("-transparentcolor", 'pink')
+  messagebox = Label( root, text="", bd=0, bg='pink', pady=10, fg='white')
    
 else:
   root.wm_attributes("-transparent", True)
@@ -126,7 +126,7 @@ def mouseClick( event ):
 root.after(0, gif,0, walk_pos)
 messagebox.pack()
 
-pet = Label(root, bd=0, bg='black')
+pet = Label(root, bd=0, bg='pink')
 pet.bind( "<Button-1>", mouseClick )
 pet.pack()
 
