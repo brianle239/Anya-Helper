@@ -1,7 +1,7 @@
 
 # Accountability Buddy
 
-Previously knows as Anya-Helper, its a desktop buddy built to keep you on track through words of encouragement and discouragement. 
+Previously known as Anya-Helper, it is a desktop buddy built to keep you on track through words of encouragement and discouragement. 
 
 
 ## Installation 
